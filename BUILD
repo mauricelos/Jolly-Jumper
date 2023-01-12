@@ -1,4 +1,4 @@
-load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 
 cc_library(
     name = "jolly_jumper",
@@ -39,5 +39,26 @@ cc_binary(
     }),
     deps = [
         ":jolly_jumper",
+    ],
+)
+
+cc_test(
+    name = "jolly_jumper_test",
+    srcs = ["test/jolly_jumper_test.cpp"],
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+    linkopts = select({
+        "@bazel_tools//src/conditions:windows": [],
+        "@bazel_tools//src/conditions:darwin": [],
+        "//conditions:default": [
+            "-std=c++17",
+            "-lstdc++fs",
+        ],
+    }),
+    deps = [
+        ":jolly_jumper",
+        "@googletest//:gtest_main",
     ],
 )
