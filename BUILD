@@ -62,3 +62,24 @@ cc_test(
         "@googletest//:gtest_main",
     ],
 )
+
+cc_binary(
+    name = "benchmark_jolly_jumper",
+    srcs = ["benchmark/benchmark_jolly_jumper.cpp"],
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+    linkopts = select({
+        "@bazel_tools//src/conditions:windows": [],
+        "@bazel_tools//src/conditions:darwin": [],
+        "//conditions:default": [
+            "-std=c++17",
+            "-lstdc++fs",
+        ],
+    }),
+    deps = [
+        ":jolly_jumper",
+        "@benchmark",
+    ],
+)
