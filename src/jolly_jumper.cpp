@@ -11,7 +11,7 @@ bool JollyJumper::IsJollyJumper(const std::vector<int>& numbers)
                                [&differences](int a, int b)
                                {
                                    auto diff{std::abs(a - b)};
-                                   if (diff == 0 || diff > differences.size() - 1 || differences[diff] == false)
+                                   if (diff == 0 || diff > differences.size() - 1 || differences.at(diff) == false)
                                    {
                                        return true;
                                    }
