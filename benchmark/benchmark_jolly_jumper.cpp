@@ -7,7 +7,7 @@
 std::vector<int> CreateJollyJumper(size_t size)
 {
     std::vector<int> numbers(size, 0);
-    std::generate(numbers.begin(), numbers.end(), [n = 1, i = 0] () mutable { return n += i++; });
+    std::generate(numbers.begin(), numbers.end(), [n = 1, i = 0]() mutable { return n += i++; });
     return numbers;
 }
 
