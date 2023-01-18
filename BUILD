@@ -19,6 +19,7 @@ cc_library(
             "-lstdc++fs",
         ],
     }),
+    deps = ["@boost//:dynamic_bitset"],
     strip_include_prefix = "include",
 )
 
