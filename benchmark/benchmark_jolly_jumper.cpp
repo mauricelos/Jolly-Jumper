@@ -7,13 +7,13 @@
 std::vector<int> CreateJollyJumper(std::size_t size)
 {
     std::vector<int> numbers(size);
-    std::generate(numbers.begin(), numbers.end(), [n = 1, i = 0] () mutable { return n += i++; });
+    std::generate(numbers.begin(), numbers.end(), [n = 1, i = 0]() mutable { return n += i++; });
     return numbers;
 }
 
 class JollyJumperFixture : public benchmark::Fixture
 {
-public:
+  public:
     std::vector<int> numbers{};
 
     JollyJumperFixture()
