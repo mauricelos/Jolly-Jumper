@@ -4,22 +4,30 @@
 
 #include "jolly_jumper.h"
 
-std::vector<int> CreateJollyJumper(size_t size)
+std::vector<int> CreateJollyJumper(std::size_t size)
 {
-    std::vector<int> numbers(size, 0);
-    std::generate(numbers.begin(), numbers.end(), [n = 1, i = 0]() mutable { return n += i++; });
+    std::vector<int> numbers(size);
+    std::generate(numbers.begin(), numbers.end(), [n = 1, i = 0] () mutable { return n += i++; });
     return numbers;
 }
 
-static void BenchmarkIsJollyJumper(benchmark::State& state)
+class JollyJumperFixture : public benchmark::Fixture
 {
-    auto numbers = CreateJollyJumper(1000);
+public:
+    std::vector<int> numbers{};
 
+    JollyJumperFixture()
+    {
+        numbers = CreateJollyJumper(1000000);
+    }
+};
+
+BENCHMARK_F(JollyJumperFixture, TestJollyJumper)(benchmark::State& state)
+{
     for (auto _ : state)
     {
         JollyJumper::IsJollyJumper(numbers);
     }
 }
 
-BENCHMARK(BenchmarkIsJollyJumper);
 BENCHMARK_MAIN();
