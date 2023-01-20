@@ -6,8 +6,8 @@ bool JollyJumper::IsJollyJumper(const std::vector<int>& numbers)
 {
     return !numbers.empty() &&
            (std::adjacent_find(numbers.begin(), numbers.end(),
-                               [differences{std::vector(numbers.size(), false)}, diff{0u}](int a, int b) mutable {
-                                   differences.at(diff) = true;
+                               [differences{std::vector<bool>(numbers.size())}, diff{0u}](int a, int b) mutable {
+                                   differences.at(diff).flip();
                                    diff = static_cast<unsigned int>(std::abs(a - b));
                                    return !(diff < differences.size() && !differences.at(diff));
                                }) == numbers.end() ||
